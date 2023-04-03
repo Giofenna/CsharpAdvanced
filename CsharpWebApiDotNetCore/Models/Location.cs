@@ -42,7 +42,7 @@
 
         public List<Reservation>? Reservations { get; set; }
 
-        public List<Landlord>? Landlords { get; set; }
+        public Landlord? Landlord { get; set; }
 
 
     }

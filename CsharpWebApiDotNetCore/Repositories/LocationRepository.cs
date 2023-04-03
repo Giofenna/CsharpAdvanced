@@ -13,7 +13,7 @@ namespace CsharpWebApiDotNetCore.Repositories
         }
         public IEnumerable<Location>? GetAllLocations()
         {
-            return _context?.Locations?.ToList();
+            return _context?.Location?.ToList();
         }
     }
 }

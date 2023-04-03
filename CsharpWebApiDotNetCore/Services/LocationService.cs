@@ -1,18 +1,19 @@
 ﻿using CsharpWebApiDotNetCore.Models;
-
+using CsharpWebApiDotNetCore.Repositories;
 namespace CsharpWebApiDotNetCore.Services
 {
     public class LocationService:ILocationService
     {
+        private readonly ILocationRepository _locationRepository;
 
-        private readonly ILocationService _locationService;
-        public LocationService(ILocationService locationService)
+        public LocationService(ILocationRepository locationRepository)
         {
-            _locationService = locationService;
+            _locationRepository = locationRepository;
         }
+        
         public IEnumerable<Location> GetAllLocations()
         {
-            return _locationService.GetAllLocations();
+            return _locationRepository.GetAllLocations();
         }
     }
 }

@@ -8,32 +8,30 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CsharpWebApiDotNetCore.Controllers
 {
-    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
     [ApiController]
-    
     [Route("api/[controller]")]
-    public class LocationsController : ControllerBase
+    public class Locations2Controller : ControllerBase
     {
         private readonly ILocationService? _locationService;
         private readonly IMapper _mapper;
         // GET: api/<LocationsController>
-        public LocationsController(ILocationService locationService, IMapper mapper)
+        public Locations2Controller(ILocationService locationService, IMapper mapper)
         {
             _mapper = mapper;
             _locationService = locationService;
         }
 
-
-
-        [MapToApiVersion("1.0")]
+      
+        [MapToApiVersion("2.0")]
         [HttpGet]
-        public IEnumerable<LocationDto> GetLocations()
+        public IEnumerable<Location2Dto> GetLocations()
         {
             var locations = _locationService?.GetAllLocations();
-            return locations.Select(l => _mapper.Map<LocationDto>(l));
+            return locations.Select(l => _mapper.Map<Location2Dto>(l));
         }
+        [MapToApiVersion("2.0")]    
         [HttpGet]
-        [MapToApiVersion("1.0")]
         [Route("GetAll")]
         public IEnumerable<Location>? Get()
         {
@@ -42,6 +40,7 @@ namespace CsharpWebApiDotNetCore.Controllers
         }
 
         // GET api/<LocationsController>/5
+        [MapToApiVersion("2.0")]
         [HttpGet("{id}")]
         public string Get(int id)
         {
@@ -49,21 +48,21 @@ namespace CsharpWebApiDotNetCore.Controllers
         }
 
         // POST api/<LocationsController>
-        [MapToApiVersion("1.0")]
+        [MapToApiVersion("2.0")]
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
         // PUT api/<LocationsController>/5
-        [MapToApiVersion("1.0")]
+        [MapToApiVersion("2.0")]
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
         // DELETE api/<LocationsController>/5
-        [MapToApiVersion("1.0")]
+        [MapToApiVersion("2.0")]
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

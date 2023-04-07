@@ -5,8 +5,11 @@ using CsharpWebApiDotNetCore.Controllers;
 using CsharpWebApiDotNetCore.Data;
 using CsharpWebApiDotNetCore.Repositories;
 using CsharpWebApiDotNetCore.Services;
+using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AirDBContext>(options =>
@@ -21,12 +24,30 @@ builder.Services.AddScoped<ILocationRepository, LocationRepository>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options=>options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First()));
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
+builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.ReportApiVersions = true;
+    options.ApiVersionReader = new QueryStringApiVersionReader("api-version");
+});
+builder.Services.AddVersionedApiExplorer(setup =>
+{
+    setup.GroupNameFormat = "'v'VVV";
+    setup.SubstituteApiVersionInUrl = true;
+});
+
 var app = builder.Build();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "V1.0");
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

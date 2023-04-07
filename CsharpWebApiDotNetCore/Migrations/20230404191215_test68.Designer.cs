@@ -4,6 +4,7 @@ using CsharpWebApiDotNetCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CsharpWebApiDotNetCore.Migrations
 {
     [DbContext(typeof(AirDBContext))]
-    partial class AirDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230404191215_test68")]
+    partial class test68
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -115,7 +117,6 @@ namespace CsharpWebApiDotNetCore.Migrations
                         {
                             Id = 1,
                             Age = 1,
-                            AvatarId = 1,
                             FirstName = "Jeffry",
                             LastName = "Bahmer"
                         });

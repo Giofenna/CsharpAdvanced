@@ -32,7 +32,7 @@
 
         public int NumberOfGuests { get; set; }
 
-        public Image? Image { get; set; }
+        public List<Image>? Images { get; set; }
 
         public Features Features { get; set; }
 

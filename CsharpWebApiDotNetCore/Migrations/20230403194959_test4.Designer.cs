@@ -4,6 +4,7 @@ using CsharpWebApiDotNetCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CsharpWebApiDotNetCore.Migrations
 {
     [DbContext(typeof(AirDBContext))]
-    partial class AirDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230403194959_test4")]
+    partial class test4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,7 +57,7 @@ namespace CsharpWebApiDotNetCore.Migrations
                     b.Property<bool>("IsCover")
                         .HasColumnType("bit");
 
-                    b.Property<int>("LocationId")
+                    b.Property<int?>("LocationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Url")
@@ -66,22 +68,6 @@ namespace CsharpWebApiDotNetCore.Migrations
                     b.HasIndex("LocationId");
 
                     b.ToTable("Image");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 2,
-                            IsCover = true,
-                            LocationId = 2,
-                            Url = "https://th.bing.com/th/id/OIP.4XB8NF1awQyApnQDDmBmQwHaEo?pid=ImgDet&rs=1"
-                        },
-                        new
-                        {
-                            Id = 1,
-                            IsCover = true,
-                            LocationId = 1,
-                            Url = "https://th.bing.com/th/id/OIP.4XB8NF1awQyApnQDDmBmQwHaEo?pid=ImgDet&rs=1"
-                        });
                 });
 
             modelBuilder.Entity("CsharpWebApiDotNetCore.Models.Landlord", b =>
@@ -115,7 +101,6 @@ namespace CsharpWebApiDotNetCore.Migrations
                         {
                             Id = 1,
                             Age = 1,
-                            AvatarId = 1,
                             FirstName = "Jeffry",
                             LastName = "Bahmer"
                         });
@@ -168,7 +153,6 @@ namespace CsharpWebApiDotNetCore.Migrations
                             Id = 1,
                             Description = "Description",
                             Features = 0,
-                            LandlordId = 1,
                             NumberOfGuests = 4,
                             PricePerDay = 20f,
                             Rooms = 2,
@@ -181,9 +165,8 @@ namespace CsharpWebApiDotNetCore.Migrations
                             Id = 2,
                             Description = "Description",
                             Features = 0,
-                            LandlordId = 1,
                             NumberOfGuests = 4,
-                            PricePerDay = 30f,
+                            PricePerDay = 20f,
                             Rooms = 2,
                             SubTitle = "SubTitle",
                             Title = "Title",
@@ -227,9 +210,7 @@ namespace CsharpWebApiDotNetCore.Migrations
                 {
                     b.HasOne("CsharpWebApiDotNetCore.Models.Location", null)
                         .WithMany("Images")
-                        .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LocationId");
                 });
 
             modelBuilder.Entity("CsharpWebApiDotNetCore.Models.Landlord", b =>

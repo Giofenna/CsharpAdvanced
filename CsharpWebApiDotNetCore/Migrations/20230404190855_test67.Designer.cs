@@ -4,6 +4,7 @@ using CsharpWebApiDotNetCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CsharpWebApiDotNetCore.Migrations
 {
     [DbContext(typeof(AirDBContext))]
-    partial class AirDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230404190855_test67")]
+    partial class test67
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,13 +76,6 @@ namespace CsharpWebApiDotNetCore.Migrations
                             IsCover = true,
                             LocationId = 2,
                             Url = "https://th.bing.com/th/id/OIP.4XB8NF1awQyApnQDDmBmQwHaEo?pid=ImgDet&rs=1"
-                        },
-                        new
-                        {
-                            Id = 1,
-                            IsCover = true,
-                            LocationId = 1,
-                            Url = "https://th.bing.com/th/id/OIP.4XB8NF1awQyApnQDDmBmQwHaEo?pid=ImgDet&rs=1"
                         });
                 });
 
@@ -115,7 +110,6 @@ namespace CsharpWebApiDotNetCore.Migrations
                         {
                             Id = 1,
                             Age = 1,
-                            AvatarId = 1,
                             FirstName = "Jeffry",
                             LastName = "Bahmer"
                         });

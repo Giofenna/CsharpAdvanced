@@ -1,5 +1,6 @@
 ﻿using CsharpWebApiDotNetCore.Data;
 using CsharpWebApiDotNetCore.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CsharpWebApiDotNetCore.Repositories
 {
@@ -13,7 +14,8 @@ namespace CsharpWebApiDotNetCore.Repositories
         }
         public IEnumerable<Location>? GetAllLocations()
         {
-            return _context?.Location?.ToList();
+            return _context?.Location.Include(data=>data.Landlord).ThenInclude(data=>data.Avatar).Include(data=>data.Images).ToList();
+           
         }
     }
 }

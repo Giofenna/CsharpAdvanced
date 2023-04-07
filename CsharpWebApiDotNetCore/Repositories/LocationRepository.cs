@@ -12,10 +12,15 @@ namespace CsharpWebApiDotNetCore.Repositories
         {
             _context = context;
         }
-        public IEnumerable<Location>? GetAllLocations()
+        public async Task<IEnumerable<Location>>? GetAllLocations()
         {
-            return _context?.Location.Include(data=>data.Landlord).ThenInclude(data=>data.Avatar).Include(data=>data.Images).ToList();
+           return await _context.Location.Include(data=>data.Landlord).ThenInclude(data=>data.Avatar).Include(data=>data.Images).ToListAsync();
            
+        }
+        public async Task<Location> GetDetails(int id)
+        {
+            return await _context.Location.Include(l => l.Landlord).ThenInclude(x => x!.Avatar).Include(i => i.Images).FirstOrDefaultAsync(i => i.Id == id);
+            
         }
     }
 }

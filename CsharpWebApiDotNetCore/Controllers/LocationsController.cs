@@ -3,6 +3,7 @@ using CsharpWebApiDotNetCore.Models;
 using CsharpWebApiDotNetCore.Models.DTO;
 using CsharpWebApiDotNetCore.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,7 +17,6 @@ namespace CsharpWebApiDotNetCore.Controllers
     {
         private readonly ILocationService? _locationService;
         private readonly IMapper _mapper;
-        // GET: api/<LocationsController>
         public LocationsController(ILocationService locationService, IMapper mapper)
         {
             _mapper = mapper;
@@ -27,46 +27,72 @@ namespace CsharpWebApiDotNetCore.Controllers
 
         [MapToApiVersion("1.0")]
         [HttpGet]
-        public IEnumerable<LocationDto> GetLocations()
+        public async Task<IEnumerable<LocationResponse>> GetLocations()
         {
-            var locations = _locationService?.GetAllLocations();
-            return locations.Select(l => _mapper.Map<LocationDto>(l));
+            var locations = await _locationService?.GetAllLocations();
+            return locations.Select(l => _mapper.Map<LocationResponse>(l));
         }
         [HttpGet]
         [MapToApiVersion("1.0")]
         [Route("GetAll")]
-        public IEnumerable<Location>? Get()
+        public async Task<IEnumerable<Location>>? Get()
         {
 
-            return _locationService?.GetAllLocations();
+            return await _locationService.GetAllLocations();
         }
-
-        // GET api/<LocationsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<LocationsController>
         [MapToApiVersion("1.0")]
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IEnumerable<LocationResponse2>> Search([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Allow)] SearchDTO? request)
         {
+            var locations = await _locationService.GetFilteredLocations(request);
+
+            return locations.Select(l => _mapper.Map<LocationResponse2>(l));
+
         }
 
-        // PUT api/<LocationsController>/5
         [MapToApiVersion("1.0")]
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpGet]
+        [Route("GetMaxPrice")]
+        public async Task<MaxPriceDTO> GetMaxPrice()
         {
+            var maxprice = await _locationService.GetMaxPrice();
+            return maxprice;
         }
 
-        // DELETE api/<LocationsController>/5
         [MapToApiVersion("1.0")]
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpGet]
+        [Route("GetDetails/{id}")]
+        public async Task<LocationDetailDTO> Details(int id)
         {
+            LocationDetailDTO locationdetails = await _locationService.GetDetails(id);
+            return locationdetails;
         }
+        //// GET api/<LocationsController>/5
+        //[HttpGet("{id}")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
+
+        //// POST api/<LocationsController>
+        //[MapToApiVersion("1.0")]
+        //[HttpPost]
+        //public void Post([FromBody] string value)
+        //{
+        //}
+
+        //// PUT api/<LocationsController>/5
+        //[MapToApiVersion("1.0")]
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
+
+        //// DELETE api/<LocationsController>/5
+        //[MapToApiVersion("1.0")]
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

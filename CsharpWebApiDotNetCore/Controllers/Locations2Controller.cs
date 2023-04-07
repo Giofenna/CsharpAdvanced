@@ -3,6 +3,7 @@ using CsharpWebApiDotNetCore.Models;
 using CsharpWebApiDotNetCore.Models.DTO;
 using CsharpWebApiDotNetCore.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,18 +26,18 @@ namespace CsharpWebApiDotNetCore.Controllers
       
         [MapToApiVersion("2.0")]
         [HttpGet]
-        public IEnumerable<Location2Dto> GetLocations()
+        public async Task<IEnumerable<LocationResponse2>> GetLocations()
         {
-            var locations = _locationService?.GetAllLocations();
-            return locations.Select(l => _mapper.Map<Location2Dto>(l));
+            var locations = await _locationService?.GetAllLocations();
+            return locations.Select(l => _mapper.Map<LocationResponse2>(l));
         }
         [MapToApiVersion("2.0")]    
         [HttpGet]
         [Route("GetAll")]
-        public IEnumerable<Location>? Get()
+        public async Task<IEnumerable<Location>>? Get()
         {
 
-            return _locationService?.GetAllLocations();
+            return await _locationService?.GetAllLocations();
         }
 
         // GET api/<LocationsController>/5
@@ -48,24 +49,20 @@ namespace CsharpWebApiDotNetCore.Controllers
         }
 
         // POST api/<LocationsController>
-        [MapToApiVersion("2.0")]
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
 
-        // PUT api/<LocationsController>/5
-        [MapToApiVersion("2.0")]
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        
+        //// PUT api/<LocationsController>/5
+        //[MapToApiVersion("2.0")]
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
 
-        // DELETE api/<LocationsController>/5
-        [MapToApiVersion("2.0")]
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// DELETE api/<LocationsController>/5
+        //[MapToApiVersion("2.0")]
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

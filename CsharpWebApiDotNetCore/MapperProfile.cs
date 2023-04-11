@@ -20,7 +20,9 @@ namespace Services
                 .ForMember(l => l.Avatar, x => x.MapFrom(y => y.Avatar!.Url))
                 .ForMember(l => l.Name, x => x.MapFrom(y => y.FirstName + " " + y.LastName));
             CreateMap<Location, LocationDetailDTO>();
+            CreateMap<ReservationRequestDTO, Reservation>();
+            CreateMap<Reservation, ReservationResponseDTO>();
         }
-        
+
     }
 }

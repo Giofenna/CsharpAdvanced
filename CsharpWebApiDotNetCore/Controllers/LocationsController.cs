@@ -42,6 +42,7 @@ namespace CsharpWebApiDotNetCore.Controllers
         }
         [MapToApiVersion("1.0")]
         [HttpPost]
+        [Route("Search")]
         public async Task<IEnumerable<LocationResponse2>> Search([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Allow)] SearchDTO? request)
         {
             var locations = await _locationService.GetFilteredLocations(request);
@@ -64,8 +65,17 @@ namespace CsharpWebApiDotNetCore.Controllers
         [Route("GetDetails/{id}")]
         public async Task<LocationDetailDTO> Details(int id)
         {
-            LocationDetailDTO locationdetails = await _locationService.GetDetails(id);
+            LocationDetailDTO locationdetails = await _locationService.GetLocationEager(id);
             return locationdetails;
+        }
+
+        [MapToApiVersion("1.0")]
+        [HttpGet]
+        [Route("UnAvailableDate/{id}")]
+        public async Task<UnAvailableDatesDTO> UnAvailableDatesDTO(int id)
+        {
+            UnAvailableDatesDTO un = await _locationService.UnAvailableDatesDTO(id);
+            return un;
         }
         //// GET api/<LocationsController>/5
         //[HttpGet("{id}")]

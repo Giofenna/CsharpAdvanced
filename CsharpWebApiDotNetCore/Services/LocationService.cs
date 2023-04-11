@@ -15,9 +15,14 @@ namespace CsharpWebApiDotNetCore.Services
             _locationRepository = locationRepository;
             _mapper = mapper;
         }
-        public async Task<LocationDetailDTO> GetDetails(int id)
+        public async Task<LocationDetailDTO> GetLocation(int id)
         {
-            var location = await _locationRepository.GetDetails(id);
+            var location = await _locationRepository.GetLocation(id);
+            return _mapper.Map<LocationDetailDTO>(location);
+        }
+        public async Task<LocationDetailDTO> GetLocationEager(int id)
+        {
+            var location = await _locationRepository.GetLocationEager(id);
             return _mapper.Map<LocationDetailDTO>(location);
         }
 
@@ -60,6 +65,32 @@ namespace CsharpWebApiDotNetCore.Services
             }
             return locations;
         }
+        public async Task<UnAvailableDatesDTO> UnAvailableDatesDTO(int Id)
+        {
+            var location = await _locationRepository.GetLocationWithReservations(Id);
+
+            var reservations = location.Reservations;
+
+            UnAvailableDatesDTO un = new UnAvailableDatesDTO();
+            un.UnavailableDates = new List<DateTime>();
+            if(reservations == null)
+            {
+                return un;
+            }
+            foreach(Reservation reservation in reservations)
+            {
+
+                for (var start = reservation.StartDate.AddDays(1); start <= reservation.EndDate.AddDays(1) ;start = start.AddDays(1))
+                {
+                un.UnavailableDates.Add(start);
+
+                }
+                
+            }
+            return un;
+        }
 
     }
+
+    
 }

@@ -6,6 +6,8 @@ namespace CsharpWebApiDotNetCore.Repositories
     {
         public Task<IEnumerable<Location>>? GetAllLocations();
 
-        public Task<Location>? GetDetails(int id);
+        public Task<Location>? GetLocation(int id);
+        public Task<Location>? GetLocationEager(int id);
+        public Task<Location> GetLocationWithReservations(int id);
     }
 }

@@ -4,6 +4,7 @@ using CsharpWebApiDotNetCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CsharpWebApiDotNetCore.Migrations
 {
     [DbContext(typeof(AirDBContext))]
-    partial class AirDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230411195205_newmigration")]
+    partial class newmigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,7 +178,7 @@ namespace CsharpWebApiDotNetCore.Migrations
                         {
                             Id = 1,
                             Description = "Description",
-                            Features = 10,
+                            Features = 0,
                             LandlordId = 1,
                             NumberOfGuests = 4,
                             PricePerDay = 20f,
@@ -189,7 +191,7 @@ namespace CsharpWebApiDotNetCore.Migrations
                         {
                             Id = 2,
                             Description = "Description",
-                            Features = 1,
+                            Features = 0,
                             LandlordId = 1,
                             NumberOfGuests = 4,
                             PricePerDay = 30f,
@@ -237,9 +239,9 @@ namespace CsharpWebApiDotNetCore.Migrations
                             Id = 1,
                             CustomerId = 1,
                             Discount = 0f,
-                            EndDate = new DateTime(2023, 4, 16, 22, 16, 45, 143, DateTimeKind.Local).AddTicks(7162),
+                            EndDate = new DateTime(2023, 4, 13, 21, 52, 4, 933, DateTimeKind.Local).AddTicks(1528),
                             LocationId = 1,
-                            StartDate = new DateTime(2023, 4, 11, 22, 16, 45, 143, DateTimeKind.Local).AddTicks(7128)
+                            StartDate = new DateTime(2023, 4, 11, 21, 52, 4, 933, DateTimeKind.Local).AddTicks(1494)
                         });
                 });
 

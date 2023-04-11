@@ -1,6 +1,8 @@
-﻿namespace CsharpWebApiDotNetCore.Repositories
+﻿using CsharpWebApiDotNetCore.Models;
+namespace CsharpWebApiDotNetCore.Repositories
 {
-    public interface ICustomerRepository
+    public interface IReservationRepository
     {
+        public Task CreateReservation(Reservation reservation);
     }
 }

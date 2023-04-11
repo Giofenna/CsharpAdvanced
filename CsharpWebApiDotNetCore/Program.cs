@@ -17,9 +17,9 @@ builder.Services.AddDbContext<AirDBContext>(options =>
 // Add services to the container.
 
 builder.Services.AddScoped<ILocationService, LocationService>();
-//builder.Services.AddScoped<ILocationService, LocationService>();
-//builder.Services.AddScoped<ILocationRepository, LocationRepository>();
 builder.Services.AddScoped<ILocationRepository, LocationRepository>();
+builder.Services.AddScoped<IReservationService, ReservationService>();
+builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

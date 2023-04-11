@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using CsharpWebApiDotNetCore.Models;
-
+using CsharpWebApiDotNetCore.Repositories;
+using System.ComponentModel.DataAnnotations;
 
 namespace CsharpWebApiDotNetCore.Data
 {
@@ -45,13 +46,15 @@ namespace CsharpWebApiDotNetCore.Data
             public void Seed()
             {
                 modelBuilder.Entity<Landlord>().HasData(new { Id = 1, Age = 1 , AvatarId= 1, FirstName = "Jeffry", LastName = "Bahmer"});
-                modelBuilder.Entity<Location>().HasData(new  { Id = 1, Rooms = 2, NumberOfGuests = 4, Title = "Title", Description = "Description", PricePerDay = (float) 20, SubTitle = "SubTitle", Features =(Features) 0 , Type = LocationType.Cottage, LandlordId = 1});
-                modelBuilder.Entity<Location>().HasData(new  { Id = 2, Rooms = 2, NumberOfGuests = 4, Title = "Title", Description = "Description", PricePerDay = (float ) 30, SubTitle = "SubTitle", Features = (Features) 0 , Type = LocationType.Cottage, LandlordId = 1});
+                modelBuilder.Entity<Location>().HasData(new  { Id = 1, Rooms = 2, NumberOfGuests = 4, Title = "Title", Description = "Description", PricePerDay = (float) 20, SubTitle = "SubTitle", Features =(Features) 10 , Type = LocationType.Cottage, LandlordId = 1});
+                modelBuilder.Entity<Location>().HasData(new  { Id = 2, Rooms = 2, NumberOfGuests = 4, Title = "Title", Description = "Description", PricePerDay = (float ) 30, SubTitle = "SubTitle", Features = (Features) 1 , Type = LocationType.Cottage, LandlordId = 1});
                 modelBuilder.Entity<Image>().HasData(new Image() { Id = 2, Url = "https://th.bing.com/th/id/OIP.4XB8NF1awQyApnQDDmBmQwHaEo?pid=ImgDet&rs=1", LocationId = 2 , IsCover = true });
                 modelBuilder.Entity<Image>().HasData(new Image() { Id = 1, Url = "https://th.bing.com/th/id/OIP.4XB8NF1awQyApnQDDmBmQwHaEo?pid=ImgDet&rs=1", LocationId = 1 , IsCover = true });
+                modelBuilder.Entity<Customer>().HasData(new Customer() { Id=1, Email="test@test.nl", FirstName="Test", LastName="Test"});
+                modelBuilder.Entity<Reservation>().HasData(new{ CustomerId = 1, Id=1, Discount=(float)0, StartDate=DateTime.Now, EndDate = DateTime.Now.AddDays(5), LocationId = 1});
             }
         }
         
     }
-
+   
 }

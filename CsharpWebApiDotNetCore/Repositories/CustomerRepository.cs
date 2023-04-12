@@ -21,6 +21,7 @@ namespace CsharpWebApiDotNetCore.Repositories
         public async Task CreateCustomer(Customer customer)
         {
             await _context.Customer.AddAsync(customer);
+            _context.SaveChanges();
         }
     }
 }

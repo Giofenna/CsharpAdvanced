@@ -14,6 +14,7 @@ namespace CsharpWebApiDotNetCore.Repositories
         {
             
             await _context.Reservation.AddAsync(reservation);
+            _context.SaveChanges();
         }
     }
 }

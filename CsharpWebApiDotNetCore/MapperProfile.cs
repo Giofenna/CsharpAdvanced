@@ -21,7 +21,10 @@ namespace Services
                 .ForMember(l => l.Name, x => x.MapFrom(y => y.FirstName + " " + y.LastName));
             CreateMap<Location, LocationDetailDTO>();
             CreateMap<ReservationRequestDTO, Reservation>();
-            CreateMap<Reservation, ReservationResponseDTO>();
+            CreateMap<Reservation, ReservationResponseDTO>()
+                .ForMember(l => l.CustomerName, x => x.MapFrom(j => j.Customer.FirstName + " " + j.Customer.LastName))
+                .ForMember(l => l.LocationName, x => x.MapFrom(j => j.Location.Title))
+                .ForMember(l=>l.Price,x=>x.MapFrom(j=>j.EndDate.Subtract(j.StartDate).TotalDays * j.Location.PricePerDay));
         }
 
     }

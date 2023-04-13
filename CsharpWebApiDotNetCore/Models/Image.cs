@@ -9,8 +9,5 @@ namespace CsharpWebApiDotNetCore.Models
         public string? Url { get; set; }
 
         public bool IsCover { get; set; }
-
-        //[ForeignKey("Location")]
-        public int LocationId{ get; set;}
     }
 }
